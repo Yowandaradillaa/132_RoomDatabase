@@ -63,7 +63,10 @@ fun HostNavigasi(
             )
         ) {
             DetailSiswaScreen(
-                navigateBack = {navController.navigateUp()}
+                { navController.navigate("${DestinasiEntry.route}/$it") },
+                navigateBack = {
+                    navController.navigateUp()
+                }
             )
         }
     }
