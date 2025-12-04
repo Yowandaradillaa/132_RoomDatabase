@@ -4,13 +4,17 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.myroom.view.EntrySiswaScreen
 import com.example.myroom.view.HomeScreen
+import com.example.myroom.view.route.DestinasiDetailSiswa
 import com.example.myroom.view.route.DestinasiHome
 import com.example.myroom.view.route.DestinasiEntry
+import com.example.myroom.view.route.DestinasiDetailSiswa.itemIdArg
 
 @Composable
 fun SiswaApp(
@@ -36,7 +40,8 @@ fun HostNavigasi(
     ) {
         composable(DestinasiHome.route) {
             HomeScreen(
-                navigateToItemEntry = { navController.navigate(DestinasiEntry.route) }
+                navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
+
             )
         }
         composable(DestinasiEntry.route) {
@@ -44,5 +49,9 @@ fun HostNavigasi(
                 navigateBack = { navController.popBackStack() }
             )
         }
+        composable (route = DestinasiDetailSiswa.routeWithArgs,
+            arguments = listOf(navArgument(name = itemIdArg){
+                type = NavType.IntType
+            })){}
     }
 }
