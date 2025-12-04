@@ -1,6 +1,7 @@
 package com.example.myroom.room
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,4 +14,10 @@ interface SiswaDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(siswa: Siswa)
+
+    @Query("SELECT * FROM tblSiswa WHERE id = :id")
+    fun getAllSiswa(id : Int): Flow<List<Siswa>>
+
+    @Delete
+    suspend fun delete(siswa: Siswa)
 }
