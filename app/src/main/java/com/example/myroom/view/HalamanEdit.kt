@@ -16,22 +16,26 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditSiswaScreen(
+    idSiswa: Int,
     navigateBack: () -> Unit,
-    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: EditViewModel = viewModel(factory = PenyediaViewModel.Factory)
-){
+    viewModel: EditViewModel = viewModel(
+        factory = PenyediaViewModel.Factory,
+        key = "edit_siswa_$idSiswa"
+    )
+) {
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(
         topBar = {
             SiswaTopAppBar(
                 title = stringResource(DestinasiEditSiswa.titleRes),
                 canNavigateBack = true,
-                navigateUp = onNavigateUp
+                navigateUp = navigateBack
             )
         },
         modifier = modifier
     ) { innerPadding ->
-        val coroutineScope = rememberCoroutineScope()
         EntrySiswaBody(
             uiStateSiswa = viewModel.uiStateSiswa,
             onSiswaValueChange = viewModel::updateUiState,
@@ -45,3 +49,4 @@ fun EditSiswaScreen(
         )
     }
 }
+

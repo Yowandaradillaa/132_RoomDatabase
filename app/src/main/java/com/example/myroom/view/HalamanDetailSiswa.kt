@@ -52,6 +52,8 @@ fun DetailSiswaScreen(
     modifier: Modifier = Modifier,
     viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
+    val uiState by viewModel.uiDetailState.collectAsState()
+
     Scaffold(
         topBar = {
             SiswaTopAppBar(
@@ -59,26 +61,24 @@ fun DetailSiswaScreen(
                 canNavigateBack = true,
                 navigateUp = navigateBack
             )
-        },floatingActionButton = {
-            val uiState = viewModel.uiDetailState.collectAsState()
-
+        },
+        floatingActionButton = {
             FloatingActionButton(
-                onClick = {navigateToEditItem(uiState.value.detailSiswa.id)
-                },
+                onClick = { navigateToEditItem(uiState.detailSiswa.id) },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = stringResource(R.string.update),
+                    contentDescription = stringResource(R.string.update)
                 )
             }
-        }, modifier = modifier
+        },
+        modifier = modifier
     ) { innerPadding ->
-        val uiState = viewModel.uiDetailState.collectAsState()
         val coroutineScope = rememberCoroutineScope()
         BodyDetailDataSiswa(
-            detailSiswaUiState = uiState.value,
+            detailSiswaUiState = uiState,
             onDelete = { coroutineScope.launch {
                 viewModel.deleteSiswa()
                 navigateBack()
@@ -89,6 +89,7 @@ fun DetailSiswaScreen(
         )
     }
 }
+
 
 @Composable
 private fun BodyDetailDataSiswa(
