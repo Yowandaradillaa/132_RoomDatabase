@@ -142,3 +142,24 @@ fun DataSiswa(
             Row(
                 modifier = Modifier.fillMaxWidth()
             ){
+                Text(
+                    text = siswa.nama,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Spacer(Modifier.weight(1f))
+                Icon(
+                    imageVector = Icons.Default.Phone ,
+                    contentDescription = null,
+                )
+                Text(
+                    text = siswa.telpon,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            Text(
+                text = siswa.alamat,
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+    }
+}
